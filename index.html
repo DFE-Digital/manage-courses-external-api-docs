@@ -237,13 +237,13 @@
                     <a href="#courses" class="toc-h2 toc-link" data-title="Courses">Courses</a>
                   </li>
                   <li>
-                    <a href="#campus" class="toc-h2 toc-link" data-title="Campus">Campus</a>
+                    <a href="#campuses" class="toc-h2 toc-link" data-title="Campuses">Campuses</a>
                   </li>
                   <li>
-                    <a href="#subject" class="toc-h2 toc-link" data-title="Subject">Subject</a>
+                    <a href="#subjects" class="toc-h2 toc-link" data-title="Subjects">Subjects</a>
                   </li>
                   <li>
-                    <a href="#provider" class="toc-h2 toc-link" data-title="Provider">Provider</a>
+                    <a href="#providers" class="toc-h2 toc-link" data-title="Providers">Providers</a>
                   </li>
               </ul>
           </li>
@@ -497,12 +497,100 @@ https://manage-courses-support.herokuapp.com/courses?page=3
 <p>This endpoint retrieves all courses.</p>
 <h4 id='http-request'>HTTP Request</h4>
 <p><code>GET https://manage-courses-support.herokuapp.com/courses</code></p>
-<h2 id='campus'>Campus</h2>
+<h2 id='campuses'>Campuses</h2><h3 id='entity-documentation-2'>Entity documentation</h3>
 <p>TODO</p>
-<h2 id='subject'>Subject</h2>
-<p>TODO</p>
-<h2 id='provider'>Provider</h2>
-<p>TODO</p>
+<h2 id='subjects'>Subjects</h2><h3 id='entity-documentation-3'>Entity documentation</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data type</th>
+<th>Possible values</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subject_code</td>
+<td>Text</td>
+<td>2-character strings</td>
+<td>2-character subject codes</td>
+</tr>
+<tr>
+<td>subject_name</td>
+<td>Text</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/subjects"</span>
+  -H <span class="s2">"Authorization: Bearer your_api_key"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"subject_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chinese"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"subject_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"T1"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves all subjects.</p>
+<h2 id='providers'>Providers</h2><h3 id='entity-documentation-4'>Entity documentation</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data type</th>
+<th>Possible values</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>institution_code</td>
+<td>Text</td>
+<td>3-character strings</td>
+<td>3-character UCAS institution code</td>
+</tr>
+<tr>
+<td>institution_name</td>
+<td>Text</td>
+<td></td>
+<td>The institution&#39;s full-length marketing name</td>
+</tr>
+<tr>
+<td>institution_type</td>
+<td>Text</td>
+<td>&quot;Y&quot;, &quot;B&quot;, &quot;0&quot;, &quot;O&quot;, null</td>
+<td>The type of institution (whether it&#39;s a university, lead school/teaching school alliance or a SCITT)</td>
+</tr>
+<tr>
+<td>accrediting_provider</td>
+<td>Text</td>
+<td>&quot;Y&quot; or &quot;N&quot;</td>
+<td>Whether the provider can accredit courses or not</td>
+</tr>
+</tbody></table>
+<h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/providers"</span>
+  -H <span class="s2">"Authorization: Bearer your_api_key"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"institution_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P60"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"institution_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"University of Plymouth"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"institution_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"accrediting_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves all institutions.</p>
 
       </div>
       <div class="dark-box">
