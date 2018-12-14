@@ -7,19 +7,10 @@ language_tabs: # must be one of https://git.io/vQNgJ
 toc_footers:
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
-includes:
-  - errors
-
 search: true
 ---
 
 # Introduction
-
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
 # Authorisation
 
@@ -40,9 +31,64 @@ curl "api_endpoint_here"
   -H "Authorization: Bearer your_api_key"
 ```
 
-# Courses
+# Pagination
 
-## Get all courses
+All endpoints return paginated results, meaning if there are more results than the page size, multiple requests will be necessary to retrieve all the results.
+
+> Example page URLs:
+
+```
+<%= config[:base_api_url] %>/courses
+<%= config[:base_api_url] %>/courses?page=1
+<%= config[:base_api_url] %>/courses?page=2
+<%= config[:base_api_url] %>/courses?page=3
+```
+
+The API responses contain meta-information in the `Link`, `Per-Page` and `Total` headers:
+
+Header | Description | Example
+------ | ----------- | -------
+Link   | Links to the next and last pages | `Link: <<%= config[:base_api_url] %>/courses?page=169>; rel="last", <<%= config[:base_api_url] %>/courses?page=2>; rel="next"`
+Per-Page | The number of results in the page | `Per-Page: 100`
+Total | The total number of results | `Total: 16888`
+
+# Errors
+
+The API uses the following error codes:
+
+Error Code | Meaning
+---------- | -------
+400 | Bad Request -- Your request is invalid.
+401 | Unauthorized -- Your API key is wrong.
+404 | Not Found -- The specified resource could not be found.
+500 | Internal Server Error -- We had a problem with our server. Try again later.
+503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+
+# Endpoints
+
+## Courses
+
+### Entity documentation
+
+Parameter | Data type | Possible values | Description
+--------- | --------- | --------------- | -----------
+course_code | Text | 4-character strings | 4-character course code
+course_month | ISO 8601 date/time string | | The month and year when the course starts
+name | Text | | Course title
+copy_form_required | Text | 'Y' or 'N' |
+profpost_flag | Text | "", "PF", "PG", "BO" | Maximum of 2-characters
+program_type | Text | "SC", "SS", "TA", "SD", "HE" | Maximum of 2-characters
+modular | Text | "", "M" | Maximum of 1-character
+english | Integer | 1, 2, 3, 9 |
+maths | Integer | 1, 2, 3, 9 |
+science | Integer | 1, 2, 3, 9, null |
+has_been_published | Boolean | true, false |
+campuses | An array of campuses | | See the campus entity documentation below
+subjects | An array of subjects | | See the subject entity documentation below
+provider | Provider | null or a provider entity | See the provider entity documentation below
+accrediting_provider | Provider | null or a provider entity | See the provider entity documentation below
+
+### Get all courses
 
 ```shell
 curl "<%= config[:base_api_url] %>/courses"
@@ -54,94 +100,71 @@ curl "<%= config[:base_api_url] %>/courses"
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+    "course_code": "36B3",
+    "course_month": "2019-09-01T00:00:00.000Z",
+    "name": "Mathematics",
+    "study_mode": "F",
+    "copy_form_required": "Y",
+    "profpost_flag": "PG",
+    "program_type": "SD",
+    "modular": "M",
+    "english": 1,
+    "maths": 3,
+    "science": null,
+    "has_been_published": true,
+    "campuses": [
+      {
+        "campus_code": "-",
+        "name": "Main Site",
+        "vac_status": "F",
+        "publish": "Y",
+        "status": "R",
+        "course_open_date": "2018-10-09 00:00:00"
+      }
+    ],
+    "subjects": [
+      {
+        "subject_name": "Secondary",
+        "subject_code": "05"
+      },
+      {
+        "subject_name": "Mathematics",
+        "subject_code": "G1"
+      }
+    ],
+    "provider": {
+      "institution_code": "2G9",
+      "institution_name": "Outwood Institute of Education North",
+      "institution_type": "Y",
+      "accrediting_provider": "Y"
+    },
+    "accrediting_provider": {
+      "institution_code": "D86",
+      "institution_name": "Durham University",
+      "institution_type": "Y",
+      "accrediting_provider": "Y"
+    }
   },
   {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    ...
   }
 ]
 ```
 
 This endpoint retrieves all courses.
 
-### HTTP Request
+#### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET <%= config[:base_api_url] %>/courses`
 
-### Query Parameters
+## Campus
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+TODO
 
-## Get a Specific Kitten
+## Subject
 
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: Bearer your_api_key"
-```
+TODO
 
+## Provider
 
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: Bearer your_api_key"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+TODO
