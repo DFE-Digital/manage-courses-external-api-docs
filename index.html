@@ -225,21 +225,27 @@
             <a href="#authorisation" class="toc-h1 toc-link" data-title="Authorisation">Authorisation</a>
           </li>
           <li>
-            <a href="#courses" class="toc-h1 toc-link" data-title="Courses">Courses</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-all-courses" class="toc-h2 toc-link" data-title="Get all courses">Get all courses</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
-                  </li>
-              </ul>
+            <a href="#pagination" class="toc-h1 toc-link" data-title="Pagination">Pagination</a>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+          <li>
+            <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#courses" class="toc-h2 toc-link" data-title="Courses">Courses</a>
+                  </li>
+                  <li>
+                    <a href="#campus" class="toc-h2 toc-link" data-title="Campus">Campus</a>
+                  </li>
+                  <li>
+                    <a href="#subject" class="toc-h2 toc-link" data-title="Subject">Subject</a>
+                  </li>
+                  <li>
+                    <a href="#provider" class="toc-h2 toc-link" data-title="Provider">Provider</a>
+                  </li>
+              </ul>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -249,13 +255,7 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authorisation'>Authorisation</h1>
+        <h1 id='introduction'>Introduction</h1><h1 id='authorisation'>Authorisation</h1>
 <p>The server expects an API key to be included in a header  for all API requests:</p>
 
 <p><code>Authorization: Bearer your_api_key</code></p>
@@ -270,107 +270,40 @@ You must replace <code>your_api_key</code> with your issued API key.
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
-</code></pre><h1 id='courses'>Courses</h1><h2 id='get-all-courses'>Get all courses</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/courses"</span>
-  -H <span class="s2">"Authorization: Bearer your_api_key"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all courses.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: Bearer your_api_key"</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
+</code></pre><h1 id='pagination'>Pagination</h1>
+<p>All endpoints return paginated results, meaning if there are more results than the page size, multiple requests will be necessary to retrieve all the results.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: Bearer your_api_key"</span>
-</code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Example page URLs:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<pre class="highlight plaintext"><code>https://manage-courses-support.herokuapp.com/courses
+https://manage-courses-support.herokuapp.com/courses?page=1
+https://manage-courses-support.herokuapp.com/courses?page=2
+https://manage-courses-support.herokuapp.com/courses?page=3
+</code></pre>
+<p>The API responses contain meta-information in the <code>Link</code>, <code>Per-Page</code> and <code>Total</code> headers:</p>
+
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Header</th>
 <th>Description</th>
+<th>Example</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>Link</td>
+<td>Links to the next and last pages</td>
+<td><code>Link: &lt;https://manage-courses-support.herokuapp.com/courses?page=169&gt;; rel=&quot;last&quot;, &lt;https://manage-courses-support.herokuapp.com/courses?page=2&gt;; rel=&quot;next&quot;</code></td>
+</tr>
+<tr>
+<td>Per-Page</td>
+<td>The number of results in the page</td>
+<td><code>Per-Page: 100</code></td>
+</tr>
+<tr>
+<td>Total</td>
+<td>The total number of results</td>
+<td><code>Total: 16888</code></td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
@@ -403,6 +336,173 @@ curl <span class="s2">"api_endpoint_here"</span>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
+<h1 id='endpoints'>Endpoints</h1><h2 id='courses'>Courses</h2><h3 id='entity-documentation'>Entity documentation</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data type</th>
+<th>Possible values</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>course_code</td>
+<td>Text</td>
+<td>4-character strings</td>
+<td>4-character course code</td>
+</tr>
+<tr>
+<td>course_month</td>
+<td>ISO 8601 date/time string</td>
+<td></td>
+<td>The month and year when the course starts</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Text</td>
+<td></td>
+<td>Course title</td>
+</tr>
+<tr>
+<td>copy_form_required</td>
+<td>Text</td>
+<td>&#39;Y&#39; or &#39;N&#39;</td>
+<td></td>
+</tr>
+<tr>
+<td>profpost_flag</td>
+<td>Text</td>
+<td>&quot;&quot;, &quot;PF&quot;, &quot;PG&quot;, &quot;BO&quot;</td>
+<td>Maximum of 2-characters</td>
+</tr>
+<tr>
+<td>program_type</td>
+<td>Text</td>
+<td>&quot;SC&quot;, &quot;SS&quot;, &quot;TA&quot;, &quot;SD&quot;, &quot;HE&quot;</td>
+<td>Maximum of 2-characters</td>
+</tr>
+<tr>
+<td>modular</td>
+<td>Text</td>
+<td>&quot;&quot;, &quot;M&quot;</td>
+<td>Maximum of 1-character</td>
+</tr>
+<tr>
+<td>english</td>
+<td>Integer</td>
+<td>1, 2, 3, 9</td>
+<td></td>
+</tr>
+<tr>
+<td>maths</td>
+<td>Integer</td>
+<td>1, 2, 3, 9</td>
+<td></td>
+</tr>
+<tr>
+<td>science</td>
+<td>Integer</td>
+<td>1, 2, 3, 9, null</td>
+<td></td>
+</tr>
+<tr>
+<td>has_been_published</td>
+<td>Boolean</td>
+<td>true, false</td>
+<td></td>
+</tr>
+<tr>
+<td>campuses</td>
+<td>An array of campuses</td>
+<td></td>
+<td>See the campus entity documentation below</td>
+</tr>
+<tr>
+<td>subjects</td>
+<td>An array of subjects</td>
+<td></td>
+<td>See the subject entity documentation below</td>
+</tr>
+<tr>
+<td>provider</td>
+<td>Provider</td>
+<td>null or a provider entity</td>
+<td>See the provider entity documentation below</td>
+</tr>
+<tr>
+<td>accrediting_provider</td>
+<td>Provider</td>
+<td>null or a provider entity</td>
+<td>See the provider entity documentation below</td>
+</tr>
+</tbody></table>
+<h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/courses"</span>
+  -H <span class="s2">"Authorization: Bearer your_api_key"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"course_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36B3"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"course_month"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mathematics"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"study_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"copy_form_required"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"profpost_flag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PG"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"program_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"modular"</span><span class="p">:</span><span class="w"> </span><span class="s2">"M"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"english"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"maths"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"science"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"has_been_published"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"campuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"campus_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main Site"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"vac_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"publish"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"R"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"course_open_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-09 00:00:00"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"subject_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Secondary"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subject_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"05"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"subject_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mathematics"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"subject_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"G1"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"provider"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"institution_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2G9"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"institution_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Outwood Institute of Education North"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"institution_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"accrediting_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"accrediting_provider"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"institution_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D86"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"institution_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Durham University"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"institution_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"accrediting_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves all courses.</p>
+<h4 id='http-request'>HTTP Request</h4>
+<p><code>GET https://manage-courses-support.herokuapp.com/courses</code></p>
+<h2 id='campus'>Campus</h2>
+<p>TODO</p>
+<h2 id='subject'>Subject</h2>
+<p>TODO</p>
+<h2 id='provider'>Provider</h2>
+<p>TODO</p>
 
       </div>
       <div class="dark-box">
