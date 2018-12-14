@@ -56,3 +56,5 @@ set :port, 4567
 helpers do
   require './lib/toc_data.rb'
 end
+
+config[:base_api_url] = 'https://manage-courses-support.herokuapp.com'

@@ -5,7 +5,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -22,35 +21,32 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
+# Authorisation
 
-> To authorize, use this code:
+The server expects an API key to be included in a header  for all API requests:
+
+`Authorization: Bearer your_api_key`
+
+<aside class="notice">
+You must replace <code>your_api_key</code> with your issued API key.
+</aside>
+
+
+> To authorise, use this code:
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: Bearer your_api_key"
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+# Courses
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
+## Get all courses
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "<%= config[:base_api_url] %>/courses"
+  -H "Authorization: Bearer your_api_key"
 ```
 
 > The above command returns JSON structured like this:
@@ -74,7 +70,7 @@ curl "http://example.com/api/kittens"
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all courses.
 
 ### HTTP Request
 
@@ -87,15 +83,11 @@ Parameter | Default | Description
 include_cats | false | If set to true, the result will also include cats.
 available | true | If set to false, the result will include kittens that have already been adopted.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
 ## Get a Specific Kitten
 
 ```shell
 curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: Bearer your_api_key"
 ```
 
 
@@ -130,7 +122,7 @@ ID | The ID of the kitten to retrieve
 ```shell
 curl "http://example.com/api/kittens/2"
   -X DELETE
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: Bearer your_api_key"
 ```
 
 > The above command returns JSON structured like this:
