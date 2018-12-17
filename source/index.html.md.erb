@@ -83,7 +83,7 @@ english | Integer | 1, 2, 3, 9 |
 maths | Integer | 1, 2, 3, 9 |
 science | Integer | 1, 2, 3, 9, null |
 has_been_published | Boolean | true, false |
-campuses | An array of campuses | | See the campus entity documentation below
+campus_statuses | An array of campus statuses | | See the campus status entity documentation below
 subjects | An array of subjects | | See the subject entity documentation below
 provider | Provider | null or a provider entity | See the provider entity documentation below
 accrediting_provider | Provider | null or a provider entity | See the provider entity documentation below
@@ -112,7 +112,7 @@ curl "<%= config[:base_api_url] %>/courses"
     "maths": 3,
     "science": null,
     "has_been_published": true,
-    "campuses": [
+    "campus_statuses": [
       {
         "campus_code": "-",
         "name": "Main Site",
@@ -158,6 +158,12 @@ This endpoint retrieves all courses.
 `GET <%= config[:base_api_url] %>/courses`
 
 ## Campuses
+
+### Entity documentation
+
+TODO
+
+## Campus statuses
 
 ### Entity documentation
 
