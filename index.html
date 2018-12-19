@@ -279,10 +279,10 @@ curl <span class="s2">"api_endpoint_here"</span>
 <blockquote>
 <p>Example page URLs:</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://manage-courses-support.herokuapp.com/courses
-https://manage-courses-support.herokuapp.com/courses?page=1
-https://manage-courses-support.herokuapp.com/courses?page=2
-https://manage-courses-support.herokuapp.com/courses?page=3
+<pre class="highlight plaintext"><code>https://manage-courses-support.herokuapp.com/api/v1/courses
+https://manage-courses-support.herokuapp.com/api/v1/courses?page=1
+https://manage-courses-support.herokuapp.com/api/v1/courses?page=2
+https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
 </code></pre>
 <p>The API responses contain meta-information in the <code>Link</code>, <code>Per-Page</code> and <code>Total</code> headers:</p>
 
@@ -296,7 +296,7 @@ https://manage-courses-support.herokuapp.com/courses?page=3
 <tr>
 <td>Link</td>
 <td>Links to the next and last pages</td>
-<td><code>Link: &lt;https://manage-courses-support.herokuapp.com/courses?page=169&gt;; rel=&quot;last&quot;, &lt;https://manage-courses-support.herokuapp.com/courses?page=2&gt;; rel=&quot;next&quot;</code></td>
+<td><code>Link: &lt;https://manage-courses-support.herokuapp.com/api/v1/courses?page=169&gt;; rel=&quot;last&quot;, &lt;https://manage-courses-support.herokuapp.com/api/v1/courses?page=2&gt;; rel=&quot;next&quot;</code></td>
 </tr>
 <tr>
 <td>Per-Page</td>
@@ -433,7 +433,7 @@ https://manage-courses-support.herokuapp.com/courses?page=3
 <td>See the provider entity documentation below</td>
 </tr>
 </tbody></table>
-<h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/courses"</span>
+<h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/api/v1/courses"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
@@ -493,7 +493,7 @@ https://manage-courses-support.herokuapp.com/courses?page=3
 </span></code></pre>
 <p>This endpoint retrieves all courses.</p>
 <h4 id='http-request'>HTTP Request</h4>
-<p><code>GET https://manage-courses-support.herokuapp.com/courses</code></p>
+<p><code>GET https://manage-courses-support.herokuapp.com/api/v1/courses</code></p>
 <h2 id='campuses'>Campuses</h2><h3 id='entity-documentation-2'>Entity documentation</h3>
 <table><thead>
 <tr>
@@ -584,7 +584,7 @@ https://manage-courses-support.herokuapp.com/courses?page=3
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/subjects"</span>
+<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/api/v1/subjects"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
@@ -635,7 +635,7 @@ https://manage-courses-support.herokuapp.com/courses?page=3
 <td>Whether the provider can accredit courses or not</td>
 </tr>
 </tbody></table>
-<h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/providers"</span>
+<h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/api/v1/providers"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
