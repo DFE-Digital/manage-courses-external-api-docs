@@ -73,7 +73,7 @@ Error Code | Meaning
 Parameter | Data type | Possible values | Description
 --------- | --------- | --------------- | -----------
 course_code | Text | 4-character strings | 4-character course code
-course_month | ISO 8601 date/time string | | The month and year when the course starts
+start_month | ISO 8601 date/time string | | The month and year when the course starts
 name | Text | | Course title
 copy_form_required | Text | 'Y' or 'N' |
 profpost_flag | Text | "", "PF", "PG", "BO" | Maximum of 2-characters
@@ -82,6 +82,7 @@ modular | Text | "", "M" | Maximum of 1-character
 english | Integer | 1, 2, 3, 9 |
 maths | Integer | 1, 2, 3, 9 |
 science | Integer | 1, 2, 3, 9, null |
+recruitment_cycle | Text || 4-character year
 campus_statuses | An array of campus statuses | | See the campus status entity documentation below
 subjects | An array of subjects | | See the subject entity documentation below
 provider | Provider | A provider entity | See the provider entity documentation below
@@ -100,7 +101,7 @@ curl "<%= config[:base_api_url] %>/courses"
 [
   {
     "course_code": "36B3",
-    "course_month": "2019-09-01T00:00:00.000Z",
+    "start_month": "2019-09-01T00:00:00.000Z",
     "name": "Mathematics",
     "study_mode": "F",
     "copy_form_required": "Y",
@@ -110,6 +111,8 @@ curl "<%= config[:base_api_url] %>/courses"
     "english": 1,
     "maths": 3,
     "science": null,
+    "qualification": 1,
+    "recruitment_cycle": "2019",
     "campus_statuses": [
       {
         "campus_code": "-",
@@ -117,7 +120,8 @@ curl "<%= config[:base_api_url] %>/courses"
         "vac_status": "F",
         "publish": "Y",
         "status": "R",
-        "course_open_date": "2018-10-09 00:00:00"
+        "course_open_date": "2018-10-09 00:00:00",
+        "recruitment_cycle": "2019"
       }
     ],
     "subjects": [
@@ -219,6 +223,7 @@ institution_code | Text | 3-character strings | 3-character UCAS institution cod
 institution_name | Text | | The institution's full-length marketing name
 institution_type | Text | "Y", "B", "0", "O", null | The type of institution (whether it's a university, lead school/teaching school alliance or a SCITT)
 accrediting_provider | Text | "Y" or "N" | Whether the provider can accredit courses or not
+campuses | An array of campus || See the campus entity documentation above
 
 ### Get all providers
 
@@ -235,7 +240,14 @@ curl "<%= config[:base_api_url] %>/providers"
     "institution_code": "P60",
     "institution_name": "University of Plymouth",
     "institution_type": "Y",
-    "accrediting_provider": "Y"
+    "accrediting_provider": "Y",
+    "campuses": [
+      {
+        "campus_code": "",
+        "name": "Main Site",
+        "recruitment_cycle": "2019"
+      }
+    ]
   },
   {
     ...
