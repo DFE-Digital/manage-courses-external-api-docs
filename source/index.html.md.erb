@@ -16,10 +16,10 @@ search: true
 
 The server expects an API key to be included in a header  for all API requests:
 
-`Authorization: Bearer your_api_key`
+`Authorization: Basic "base64_encode_credentials"`
 
 <aside class="notice">
-You must replace <code>your_api_key</code> with your issued API key.
+You must replace <code>base64_encode_credentials</code> with your issued username and password.
 </aside>
 
 
@@ -27,8 +27,7 @@ You must replace <code>your_api_key</code> with your issued API key.
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: Bearer your_api_key"
+curl "api_endpoint_here" -u username:password
 ```
 
 # Pagination
@@ -91,8 +90,7 @@ accrediting_provider | Provider | null or a provider entity | See the provider e
 ### Get all courses
 
 ```shell
-curl "<%= config[:base_api_url] %>/courses"
-  -H "Authorization: Bearer your_api_key"
+curl "<%= config[:base_api_url] %>/courses" -u username:password
 ```
 
 > The above command returns JSON structured like this:
@@ -193,8 +191,7 @@ subject_name | Text | |
 ### Get all providers
 
 ```shell
-curl "<%= config[:base_api_url] %>/subjects"
-  -H "Authorization: Bearer your_api_key"
+curl "<%= config[:base_api_url] %>/subjects" -u username:password
 ```
 
 > The above command returns JSON structured like this:
@@ -228,8 +225,7 @@ campuses | An array of campus || See the campus entity documentation above
 ### Get all providers
 
 ```shell
-curl "<%= config[:base_api_url] %>/providers"
-  -H "Authorization: Bearer your_api_key"
+curl "<%= config[:base_api_url] %>/providers" -u username:password
 ```
 
 > The above command returns JSON structured like this:
