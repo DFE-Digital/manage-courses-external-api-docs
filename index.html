@@ -355,7 +355,7 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
 <td>4-character course code</td>
 </tr>
 <tr>
-<td>course_month</td>
+<td>start_month</td>
 <td>ISO 8601 date/time string</td>
 <td></td>
 <td>The month and year when the course starts</td>
@@ -409,6 +409,12 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
 <td></td>
 </tr>
 <tr>
+<td>recruitment_cycle</td>
+<td>Text</td>
+<td></td>
+<td>4-character year</td>
+</tr>
+<tr>
 <td>campus_statuses</td>
 <td>An array of campus statuses</td>
 <td></td>
@@ -442,7 +448,7 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"course_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36B3"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"course_month"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"start_month"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-01T00:00:00.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mathematics"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"study_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"copy_form_required"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
@@ -452,7 +458,8 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
     </span><span class="s2">"english"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="s2">"maths"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
     </span><span class="s2">"science"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"has_been_published"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"qualification"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"recruitment_cycle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"campus_statuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"campus_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w">
@@ -460,7 +467,8 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
         </span><span class="s2">"vac_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"F"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"publish"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"R"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"course_open_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-09 00:00:00"</span><span class="w">
+        </span><span class="s2">"course_open_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-09 00:00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recruitment_cycle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"subjects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -634,6 +642,12 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
 <td>&quot;Y&quot; or &quot;N&quot;</td>
 <td>Whether the provider can accredit courses or not</td>
 </tr>
+<tr>
+<td>campuses</td>
+<td>An array of campus</td>
+<td></td>
+<td>See the campus entity documentation above</td>
+</tr>
 </tbody></table>
 <h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/api/v1/providers"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
@@ -646,7 +660,14 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
     </span><span class="s2">"institution_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"P60"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"institution_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"University of Plymouth"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"institution_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"accrediting_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="w">
+    </span><span class="s2">"accrediting_provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Y"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"campuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"campus_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main Site"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"recruitment_cycle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="err">...</span><span class="w">
