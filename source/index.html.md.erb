@@ -74,6 +74,7 @@ Parameter | Data type | Possible values | Description
 --------- | --------- | --------------- | -----------
 course_code | Text | 4-character strings | 4-character course code
 start_month | ISO 8601 date/time string | | The month and year when the course starts
+start_month_string | Text | January, February, etc | The month when the course starts as a string
 name | Text | | Course title
 copy_form_required | Text | 'Y' or 'N' |
 profpost_flag | Text | "", "PF", "PG", "BO" | Maximum of 2-characters
@@ -102,6 +103,7 @@ curl "<%= config[:base_api_url] %>/courses"
   {
     "course_code": "36B3",
     "start_month": "2019-09-01T00:00:00.000Z",
+    "start_month_string": "September",
     "name": "Mathematics",
     "study_mode": "F",
     "copy_form_required": "Y",
