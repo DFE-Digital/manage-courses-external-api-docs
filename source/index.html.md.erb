@@ -88,6 +88,7 @@ campus_statuses | An array of campus statuses | | See the campus status entity d
 subjects | An array of subjects | | See the subject entity documentation below
 provider | Provider | A provider entity | See the provider entity documentation below
 accrediting_provider | Provider | null or a provider entity | See the provider entity documentation below
+age_range | Text | "P", "S", "M", "O" | Age of students targeted by this course.
 
 ### Get all courses
 
@@ -115,6 +116,7 @@ curl "<%= config[:base_api_url] %>/courses"
     "science": null,
     "qualification": 1,
     "recruitment_cycle": "2019",
+    "age_range": "S",
     "campus_statuses": [
       {
         "campus_code": "-",
