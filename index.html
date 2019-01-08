@@ -444,6 +444,12 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
 <td>null or a provider entity</td>
 <td>See the provider entity documentation below</td>
 </tr>
+<tr>
+<td>age_range</td>
+<td>Text</td>
+<td>&quot;P&quot;, &quot;S&quot;, &quot;M&quot;, &quot;O&quot;</td>
+<td>Age of students targeted by this course.</td>
+</tr>
 </tbody></table>
 <h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-support.herokuapp.com/api/v1/courses"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
@@ -467,6 +473,7 @@ https://manage-courses-support.herokuapp.com/api/v1/courses?page=3
     </span><span class="s2">"science"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
     </span><span class="s2">"qualification"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="s2">"recruitment_cycle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"age_range"</span><span class="p">:</span><span class="w"> </span><span class="s2">"S"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"campus_statuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"campus_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w">
