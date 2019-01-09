@@ -142,7 +142,12 @@ curl "<%= config[:base_api_url] %>/courses"
       "institution_code": "2G9",
       "institution_name": "Outwood Institute of Education North",
       "institution_type": "Y",
-      "accrediting_provider": "Y"
+      "accrediting_provider": "Y",
+      "address1": "Sydney Russell School",
+      "address2": "Parsloes Avenue",
+      "address3": "Dagenham",
+      "address4": "Essex",
+      "postcode": "RM9 5QT"
     },
     "accrediting_provider": {
       "institution_code": "D86",
@@ -228,6 +233,11 @@ institution_name | Text | | The institution's full-length marketing name
 institution_type | Text | "Y", "B", "0", "O", null | The type of institution (whether it's a university, lead school/teaching school alliance or a SCITT)
 accrediting_provider | Text | "Y" or "N" | Whether the provider can accredit courses or not
 campuses | An array of campus || See the campus entity documentation above
+address1 | Text || Address line 1
+address2 | Text || Address line 2
+address3 | Text || Town/City
+address4 | Text || County
+postcode | Text || Postcode
 
 ### Get all providers
 
@@ -245,6 +255,11 @@ curl "<%= config[:base_api_url] %>/providers"
     "institution_name": "University of Plymouth",
     "institution_type": "Y",
     "accrediting_provider": "Y",
+    "address1": "Sydney Russell School",
+    "address2": "Parsloes Avenue",
+    "address3": "Dagenham",
+    "address4": "Essex",
+    "postcode": "RM9 5QT",
     "campuses": [
       {
         "campus_code": "",
