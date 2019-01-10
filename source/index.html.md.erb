@@ -174,10 +174,14 @@ This endpoint retrieves all courses.
 
 Parameter | Data type | Possible values | Description
 --------- | --------- | --------------- | -----------
-campus_code | Text | A-Z, 0-9, "-", "" | 1-character campus codes
+campus_code | Text | A-Z, 0-9, "-" or "" | 1-character campus codes
 name | Text | |
 region_code | Text | 01 to 11 | 2-character string
 recruitment_cycle | Text || 4-character year
+
+<aside class="warning">
+A single provider can have at most 37 campuses.
+</aside>
 
 ## Campus statuses
 
