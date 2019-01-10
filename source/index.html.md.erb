@@ -176,6 +176,7 @@ Parameter | Data type | Possible values | Description
 --------- | --------- | --------------- | -----------
 campus_code | Text | A-Z, 0-9, "-", "" | 1-character campus codes
 name | Text | |
+region_code | Text | 01 to 11 | 2-character string
 
 ## Campus statuses
 
@@ -238,6 +239,7 @@ address2 | Text || Address line 2
 address3 | Text || Town/City
 address4 | Text || County
 postcode | Text || Postcode
+region_code | Text | 01 to 11 | 2-character string
 
 ### Get all providers
 
@@ -260,11 +262,13 @@ curl "<%= config[:base_api_url] %>/providers"
     "address3": "Dagenham",
     "address4": "Essex",
     "postcode": "RM9 5QT",
+    "region_code": "01",
     "campuses": [
       {
         "campus_code": "",
         "name": "Main Site",
-        "recruitment_cycle": "2019"
+        "recruitment_cycle": "2019",
+        "region_code": "01"
       }
     ]
   },
