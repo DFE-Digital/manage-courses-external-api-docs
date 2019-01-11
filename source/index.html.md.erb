@@ -100,6 +100,14 @@ provider | Provider | A provider entity | See the provider entity documentation 
 accrediting_provider | Provider | null or a provider entity | See the provider entity documentation below
 age_range | Text | "P", "S", "M", "O" | Age of students targeted by this course.
 
+#### Course codes
+
+Course codes:
+
+- are unique within a provider
+- are not unique across providers
+- are stable across rollover (i.e. by default, a course in a particular subject delivered by the same provider will have the same course code across different recruitment cycles)
+
 ### Get all courses
 
 ```shell
@@ -271,7 +279,19 @@ address2 | Text || Address line 2
 address3 | Text || Town/City
 address4 | Text || County
 postcode | Text || Postcode
-region_code | Text | 01 to 11 | 2-character string
+region_code | Text | `1` to `11` | 2-character string
+abl_listing | Text | `ABL Course / Personal ID`, `ABL Course / Faculty / Surname`, `ABL Course / Surname`, `ABL June cat / Personal ID`, `ABL Surname` or `ABL Course / Faculty / Personal ID` |
+data_download_format | Text | `ASCII data`, `Unicode data` or `ASCII data and unicode data` |
+june_labels_ordering | Text | `Course` or `Alphabetic` |
+new_applicant_labels | Text | `No, not required` or `Yes, required` |
+oustanding_decisions | Text | `Faculty`, `Course` or `Learner Number` |
+copy_form_sequence | Text | `Faculty`, `Course` or `Application Code` |
+require_copy_forms | Text | `No, not required` or `Yes, required` |
+star_j | Text | `UCAS link` or `Flat file` |
+star_x | Text | `No, not required` or `Yes, required` |
+applications_alerts | Text | `No, not required`, `Yes, required`, `Yes - only my programmes` or `Yes - for accredited programmes only` | New UTT Application alerts
+type_of_gt12_required | Text | `Coming or Not`, `Coming / Enrol` or `Not coming` |
+one_audition | Text | `No, not required` or `Yes, required` | For secondary instrument study
 
 ### Get all providers
 
