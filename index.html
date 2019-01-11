@@ -231,6 +231,9 @@
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
           <li>
+            <a href="#preparation-for-the-next-recruitment-cycle-rollover" class="toc-h1 toc-link" data-title="Preparation for the next recruitment cycle (rollover)">Preparation for the next recruitment cycle (rollover)</a>
+          </li>
+          <li>
             <a href="#endpoints" class="toc-h1 toc-link" data-title="Endpoints">Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
@@ -339,6 +342,16 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
+<h1 id='preparation-for-the-next-recruitment-cycle-rollover'>Preparation for the next recruitment cycle (rollover)</h1>
+<p>During a given recruitment cycle, there will be a period when providers have two sets of courses to manage – one set of courses that are currently published for the current recruitment cycle, and unpublished courses being preparated for the next recruitment cycle. Additionally, the providers who deliver next year&#39;s courses may change, and they may have different campuses for the same courses. The point in time when the overlap starts is referred to as rollover, and typically happens in or around May.</p>
+
+<p>To differentiate between entities from different recruitment cycles, each endpoint has a <code>&lt;recruitment_cycle&gt;</code> part in the URL. Additionally, the following entities have a <code>recruitment_cycle</code> attribute:</p>
+
+<ul>
+<li>course</li>
+<li>campus</li>
+<li>campus status</li>
+</ul>
 <h1 id='endpoints'>Endpoints</h1><h2 id='courses'>Courses</h2><h3 id='entity-documentation'>Entity documentation</h3>
 <table><thead>
 <tr>
@@ -451,7 +464,7 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td>Age of students targeted by this course.</td>
 </tr>
 </tbody></table>
-<h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/courses"</span>
+<h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/courses"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
@@ -520,7 +533,19 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 </span></code></pre>
 <p>This endpoint retrieves all courses.</p>
 <h4 id='http-request'>HTTP Request</h4>
-<p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/courses</code></p>
+<p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/courses</code></p>
+<h4 id='url-parameters'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recruitment_cycle</td>
+<td>4-character year (e.g. 2019 for 2019/20 courses)</td>
+</tr>
+</tbody></table>
 <h2 id='campuses'>Campuses</h2><h3 id='entity-documentation-2'>Entity documentation</h3>
 <table><thead>
 <tr>
@@ -633,7 +658,7 @@ A single provider can have at most 37 campuses.
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/subjects"</span>
+<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/subjects"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
@@ -650,6 +675,20 @@ A single provider can have at most 37 campuses.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all subjects.</p>
+<h4 id='http-request-2'>HTTP Request</h4>
+<p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/subjects</code></p>
+<h4 id='url-parameters-2'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recruitment_cycle</td>
+<td>4-character year (e.g. 2019 for 2019/20 courses)</td>
+</tr>
+</tbody></table>
 <h2 id='providers'>Providers</h2><h3 id='entity-documentation-5'>Entity documentation</h3>
 <table><thead>
 <tr>
@@ -726,7 +765,7 @@ A single provider can have at most 37 campuses.
 <td>2-character string</td>
 </tr>
 </tbody></table>
-<h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/providers"</span>
+<h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/providers"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
@@ -759,6 +798,20 @@ A single provider can have at most 37 campuses.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all institutions.</p>
+<h4 id='http-request-3'>HTTP Request</h4>
+<p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/providers</code></p>
+<h4 id='url-parameters-3'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recruitment_cycle</td>
+<td>4-character year (e.g. 2019 for 2019/20 courses)</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
