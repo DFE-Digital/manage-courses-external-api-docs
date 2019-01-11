@@ -192,6 +192,34 @@ Parameter | Description
 --------- | -----------
 recruitment_cycle | 4-character year (e.g. 2019 for 2019/20 courses)
 
+### Get all changed courses
+
+This endpoint retrieves all courses changed since midnight UTC of the specified day.
+
+The returned results:
+
+- match the structure of the [Get all courses](#get-all-courses) endpoint
+- are sorted chronologically with the oldest update first
+- are paginated with a page size of 1000 (see the [pagination section](#pagination) for info about navigating pages)
+
+A course is marked as changed (and hence included in this endpoint) if:
+
+- the course itself has been changed
+- the campus status has changed
+- campus associations have changed
+- subject associations have changed
+
+#### HTTP Request
+
+`GET <%= config[:base_api_url] %>/<recruitment_cycle>/courses?changed_since=<YYYYMMDD>`
+
+#### URL Parameters
+
+Parameter | Description
+--------- | -----------
+recruitment_cycle | 4-character year (e.g. 2019 for 2019/20 courses)
+changed_since | Day in YYYYMMDD format
+
 ## Campuses
 
 ### Entity documentation
