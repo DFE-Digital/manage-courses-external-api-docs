@@ -533,7 +533,7 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <tr>
 <td>campus_code</td>
 <td>Text</td>
-<td>A-Z, 0-9, &quot;-&quot;, &quot;&quot;</td>
+<td>A-Z, 0-9, &quot;-&quot; or &quot;&quot;</td>
 <td>1-character campus codes</td>
 </tr>
 <tr>
@@ -542,7 +542,23 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td></td>
 <td></td>
 </tr>
+<tr>
+<td>region_code</td>
+<td>Text</td>
+<td>01 to 11</td>
+<td>2-character string</td>
+</tr>
+<tr>
+<td>recruitment_cycle</td>
+<td>Text</td>
+<td></td>
+<td>4-character year</td>
+</tr>
 </tbody></table>
+
+<aside class="warning">
+A single provider can have at most 37 campuses.
+</aside>
 <h2 id='campus-statuses'>Campus statuses</h2><h3 id='entity-documentation-3'>Entity documentation</h3>
 <table><thead>
 <tr>
@@ -587,6 +603,12 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td>ISO 8601 date/time string</td>
 <td></td>
 <td></td>
+</tr>
+<tr>
+<td>recruitment_cycle</td>
+<td>Text</td>
+<td></td>
+<td>4-character year</td>
 </tr>
 </tbody></table>
 <h2 id='subjects'>Subjects</h2><h3 id='entity-documentation-4'>Entity documentation</h3>
@@ -697,6 +719,12 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td></td>
 <td>Postcode</td>
 </tr>
+<tr>
+<td>region_code</td>
+<td>Text</td>
+<td>01 to 11</td>
+<td>2-character string</td>
+</tr>
 </tbody></table>
 <h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/providers"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
@@ -715,11 +743,13 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
     </span><span class="s2">"address3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dagenham"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"address4"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Essex"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"postcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RM9 5QT"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"region_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"campuses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"campus_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main Site"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"recruitment_cycle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019"</span><span class="w">
+        </span><span class="s2">"recruitment_cycle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"region_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
