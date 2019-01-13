@@ -100,6 +100,14 @@ provider | Provider | A provider entity | See the provider entity documentation 
 accrediting_provider | Provider | null or a provider entity | See the provider entity documentation below
 age_range | Text | "P", "S", "M", "O" | Age of students targeted by this course.
 
+#### Course codes
+
+Course codes:
+
+- are unique within a provider
+- are not unique across providers
+- are stable across rollover (i.e. by default, a course in a particular subject delivered by the same provider will have the same course code across different recruitment cycles)
+
 ### Get all courses
 
 ```shell
