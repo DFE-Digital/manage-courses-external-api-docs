@@ -464,6 +464,14 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td>Age of students targeted by this course.</td>
 </tr>
 </tbody></table>
+<h4 id='course-codes'>Course codes</h4>
+<p>Course codes:</p>
+
+<ul>
+<li>are unique within a provider</li>
+<li>are not unique across providers</li>
+<li>are stable across rollover (i.e. by default, a course in a particular subject delivered by the same provider will have the same course code across different recruitment cycles)</li>
+</ul>
 <h3 id='get-all-courses'>Get all courses</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/courses"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
@@ -658,7 +666,7 @@ A single provider can have at most 37 campuses.
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/subjects"</span>
+<h3 id='get-all-subjects'>Get all subjects</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/subjects"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
@@ -765,7 +773,7 @@ A single provider can have at most 37 campuses.
 <td>2-character string</td>
 </tr>
 </tbody></table>
-<h3 id='get-all-providers-2'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/providers"</span>
+<h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/providers"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre>
 <blockquote>
