@@ -194,7 +194,7 @@ recruitment_cycle | 4-character year (e.g. 2019 for 2019/20 courses)
 
 ### Get all changed courses
 
-This endpoint retrieves all courses changed since midnight UTC of the specified day.
+This endpoint retrieves all courses changed since the specified point in time.
 
 The returned results:
 
@@ -211,14 +211,14 @@ A course is marked as changed (and hence included in this endpoint) if:
 
 #### HTTP Request
 
-`GET <%= config[:base_api_url] %>/<recruitment_cycle>/courses?changed_since=<YYYYMMDD>`
+`GET <%= config[:base_api_url] %>/<recruitment_cycle>/courses?changed_since=<YYYYMMDDHHMMSS>`
 
 #### URL Parameters
 
 Parameter | Description
 --------- | -----------
 recruitment_cycle | 4-character year (e.g. 2019 for 2019/20 courses)
-changed_since | Day in YYYYMMDD format
+changed_since | Day in YYYYMMDDHHMMSS format
 
 ## Campuses
 
@@ -360,7 +360,7 @@ recruitment_cycle | 4-character year (e.g. 2019 for 2019/20 courses)
 
 ### Get all changed providers
 
-This endpoint retrieves all providers changed since midnight UTC of the specified day.
+This endpoint retrieves all providers changed since the specified point in time.
 
 The returned results:
 
@@ -376,11 +376,11 @@ A provider is marked as changed (and hence included in this endpoint) if:
 
 #### HTTP Request
 
-`GET <%= config[:base_api_url] %>/<recruitment_cycle>/providers?changed_since=<YYYYMMDD>`
+`GET <%= config[:base_api_url] %>/<recruitment_cycle>/providers?changed_since=<YYYYMMDDHHMMSS>`
 
 #### URL Parameters
 
 Parameter | Description
 --------- | -----------
 recruitment_cycle | 4-character year (e.g. 2019 for 2019/20 courses)
-changed_since | Day in YYYYMMDD format
+changed_since | Day in YYYYMMDDHHMMSS format
