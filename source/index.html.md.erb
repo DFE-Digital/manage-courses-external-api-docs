@@ -52,7 +52,6 @@ Last-Changed: 20190113222741
 | Link         | Links to the next and last pages                                                               |
 | Per-Page     | The number of results in the page                                                              |
 | Total        | The total number of results                                                                    |
-| Last-Changed | The timestamp to use with `changed-since`. Only used when using the `changed_since` parameter. |
 
 Behind the scenes, there are two types of pagination depending on whether all
 records are being returned, or whether a list of records changed since a given
@@ -99,6 +98,7 @@ so clients should be prepared to receive duplicate records.
 < Per-Page: 100
 < Total: 250
 
+
 # second page of results
 > GET <%= config[:base_api_url] %>/2018/courses?changed_since=20190110T112846Z&changed_id=173
 
@@ -108,7 +108,7 @@ so clients should be prepared to receive duplicate records.
 
 
 # last page of results with "next" link to be used later
-> GET <%= config[:base_api_url] %>/2018/courses?changed_since=20190111T112846Z&changed_id=173
+> GET <%= config[:base_api_url] %>/2018/courses?changed_since=20190111T222741Z&changed_id=291
 
 < Link: <<%= config[:base_api_url] %>/2018/courses?changed_since=20190113T120126Z&changed_id=400>;rel="next"
 < Per-Page: 100
@@ -127,9 +127,11 @@ details.
 To initiate a changed-records request supply the parameter `changed_since` with
 a timestamp of the last API requests.
 
-| Parameter     | Data type                                                           | Description                                                                                     |
-|---------------|---------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| changed_since | [ISO 8601 date/time string](https://en.wikipedia.org/wiki/ISO_8601) | Request all records that have changed since this date/time. Leave blank to retrieve all records |
+| Parameter     | Data type                                                           | Description                                                                                                                           |
+|---------------|---------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| changed_since | [ISO 8601 date/time string](https://en.wikipedia.org/wiki/ISO_8601) | Request all records that have changed since this date/time. Leave blank to retrieve all records                                       |
+| changed_id    | Integer                                                             | Optional. In the case where multiple records are changed within the same second, this is used to specify which record id to start at. |
+|               |                                                                     |                                                                                                                                       |
 
 
 The response headers will include information related to continuing to retrieve
@@ -144,9 +146,9 @@ changed records either immediately, or when ready to injest more records.
 
 As all responses from the API are paginated, a set maximum of results will be
 returned and a link to the next page will be included in the response headers.
-If the value for `Total` is less than `Per-Page` that means that there are no
-more results to retrieve with the `next` link (if used, 0 will be returned).
-This `next` link may then be used for a future request to continue the
+If the value for `Total` is less than `Per-Page` that indicates that there are
+no more results to retrieve with the `next` link, and if used 0 records will be
+returned. The `next` link may be saved for a future request to continue the
 incremental loading of changed data.
 
 # Errors
