@@ -226,6 +226,17 @@
           </li>
           <li>
             <a href="#pagination" class="toc-h1 toc-link" data-title="Pagination">Pagination</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#all-records-pagination" class="toc-h2 toc-link" data-title="All-Records Pagination">All-Records Pagination</a>
+                  </li>
+                  <li>
+                    <a href="#changed-records-pagination" class="toc-h2 toc-link" data-title="Changed-Records Pagination">Changed-Records Pagination</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#retrieving-changed-records" class="toc-h1 toc-link" data-title="Retrieving Changed Records">Retrieving Changed Records</a>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
@@ -277,41 +288,157 @@ You must replace <code>your_api_key</code> with your issued API key.
 curl <span class="s2">"api_endpoint_here"</span>
   -H <span class="s2">"Authorization: Bearer your_api_key"</span>
 </code></pre><h1 id='pagination'>Pagination</h1>
-<p>All endpoints return paginated results, meaning if there are more results than the page size, multiple requests will be necessary to retrieve all the results.</p>
+<p>All endpoints return paginated results, meaning if there are more results than
+the page size, multiple requests will be necessary to retrieve all the results.
+Clients should use the links provided in the headers for the next pages when
+retrieving the entire result-set.</p>
 
 <blockquote>
-<p>Example page URLs:</p>
+<p>Example headers:</p>
 </blockquote>
-<pre class="highlight plaintext"><code>https://manage-courses-backend.herokuapp.com/api/v1/courses
-https://manage-courses-backend.herokuapp.com/api/v1/courses?page=1
-https://manage-courses-backend.herokuapp.com/api/v1/courses?page=2
-https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
+<pre class="highlight plaintext"><code>Link: &lt;https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?page=169&gt;; rel="last", &lt;https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?page=2&gt;; rel="next"
+Per-Page: 100
+Total: 16888
+Last-Changed: 20190113222741
 </code></pre>
-<p>The API responses contain meta-information in the <code>Link</code>, <code>Per-Page</code> and <code>Total</code> headers:</p>
-
 <table><thead>
 <tr>
 <th>Header</th>
 <th>Description</th>
-<th>Example</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>Link</td>
 <td>Links to the next and last pages</td>
-<td><code>Link: &lt;https://manage-courses-backend.herokuapp.com/api/v1/courses?page=169&gt;; rel=&quot;last&quot;, &lt;https://manage-courses-backend.herokuapp.com/api/v1/courses?page=2&gt;; rel=&quot;next&quot;</code></td>
 </tr>
 <tr>
 <td>Per-Page</td>
 <td>The number of results in the page</td>
-<td><code>Per-Page: 100</code></td>
 </tr>
 <tr>
 <td>Total</td>
 <td>The total number of results</td>
-<td><code>Total: 16888</code></td>
 </tr>
 </tbody></table>
+
+<p>Behind the scenes, there are two types of pagination depending on whether all
+records are being returned, or whether a list of records changed since a given
+time are returned.</p>
+<h2 id='all-records-pagination'>All-Records Pagination</h2>
+<blockquote>
+<p>Example page URLs:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>https://manage-courses-backend.herokuapp.com/api/v1/2018/courses
+https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?page=1
+https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?page=2
+https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?page=3
+</code></pre>
+<p>When all records are being retrieved, pagination is done using the <code>page</code>
+parameter.</p>
+<h2 id='changed-records-pagination'>Changed-Records Pagination</h2>
+<blockquote>
+<p>Example page URLs:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=
+https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190113T222741Z
+https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190114T223403Z
+</code></pre>
+<p>When changed records are being retrieved, pagination is done by re-using the
+<code>changed_since</code> parameter. This pagination is state-less and any records that
+change while the results are being retrieved will appear again in the results,
+so clients should be prepared to receive duplicate records.</p>
+<h1 id='retrieving-changed-records'>Retrieving Changed Records</h1>
+<blockquote>
+<p>Example request sequence:</p>
+</blockquote>
+<pre class="highlight plaintext"><code># initial get with first page or results
+&gt; GET https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=
+
+&lt; Link: &lt;https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190110T112846Z&amp;changed_id=173&gt;;rel="next"
+&lt; Per-Page: 100
+&lt; Total: 250
+
+
+# second page of results
+&gt; GET https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190110T112846Z&amp;changed_id=173
+
+&lt; Link: &lt;https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190111T222741Z&amp;changed_id=291&gt;;rel="next"
+&lt; Per-Page: 100
+&lt; Total: 150
+
+
+# last page of results with "next" link to be used later
+&gt; GET https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190111T222741Z&amp;changed_id=291
+
+&lt; Link: &lt;https://manage-courses-backend.herokuapp.com/api/v1/2018/courses?changed_since=20190113T120126Z&amp;changed_id=400&gt;;rel="next"
+&lt; Per-Page: 100
+&lt; Total: 50
+</code></pre>
+<p>Certain endpoints support retrieving records that have changed since a given
+point in time. This is to facilitate keeping a client&#39;s database in sync with
+the primary source at the DfE using incremental updates, where using the API as
+a live data source is not an option.</p>
+
+<p>The general pattern for how to retrieve changed records is described here, see
+endpoint documentation below to see which endpoints support this and for further
+details.</p>
+
+<p>To initiate a changed-records request supply the parameter <code>changed_since</code> with
+a timestamp of the last API requests.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Data type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>changed_since</td>
+<td><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 date/time string</a></td>
+<td>Request all records that have changed since this date/time. Leave blank to retrieve all records</td>
+</tr>
+<tr>
+<td>changed_id</td>
+<td>Integer</td>
+<td>Optional. In the case where multiple records are changed within the same second, this is used to specify which record id to start at.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<p>The response headers will include information related to continuing to retrieve
+changed records either immediately, or when ready to injest more records.</p>
+
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Link</td>
+<td>Links to the next and last pages.</td>
+</tr>
+<tr>
+<td>Per-Page</td>
+<td>The maximum number of results on a page.</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>The total number of results.</td>
+</tr>
+</tbody></table>
+
+<p>As all responses from the API are paginated, a set maximum of results will be
+returned and a link to the next page will be included in the response headers.
+If the value for <code>Total</code> is less than <code>Per-Page</code> that indicates that there are
+no more results to retrieve with the <code>next</code> link, and if used 0 records will be
+returned. The <code>next</code> link may be saved for a future request to continue the
+incremental loading of changed data.</p>
 <h1 id='errors'>Errors</h1>
 <p>The API uses the following error codes:</p>
 
@@ -554,6 +681,45 @@ https://manage-courses-backend.herokuapp.com/api/v1/courses?page=3
 <td>4-character year (e.g. 2019 for 2019/20 courses)</td>
 </tr>
 </tbody></table>
+<h3 id='get-changed-courses'>Get changed courses</h3>
+<p>This endpoint supports retrieving courses that have changed since the
+specified point in time, see the <a href="#retrieving-changed-records">Retrieving Changed
+Records</a> section.</p>
+
+<p>The returned results:</p>
+
+<ul>
+<li>match the structure of the <a href="#get-all-courses">Get all courses</a> endpoint</li>
+<li>are sorted chronologically with the oldest update first</li>
+<li>are paginated with a page size of 100 (see the <a href="#pagination">pagination section</a> for info about navigating pages)</li>
+</ul>
+
+<p>A course is marked as changed (and hence included in this endpoint) if:</p>
+
+<ul>
+<li>the course itself has been changed</li>
+<li>the campus status has changed</li>
+<li>campus associations have changed</li>
+<li>subject associations have changed</li>
+</ul>
+<h4 id='http-request-2'>HTTP Request</h4>
+<p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/courses?changed_since=&lt;iso-8601-timestamp&gt;</code></p>
+<h4 id='url-parameters-2'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recruitment_cycle</td>
+<td>4-character year (e.g. 2019 for 2019/20 courses)</td>
+</tr>
+<tr>
+<td>changed_since</td>
+<td><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 date/time string</a></td>
+</tr>
+</tbody></table>
 <h2 id='campuses'>Campuses</h2><h3 id='entity-documentation-2'>Entity documentation</h3>
 <table><thead>
 <tr>
@@ -683,9 +849,9 @@ A single provider can have at most 37 campuses.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all subjects.</p>
-<h4 id='http-request-2'>HTTP Request</h4>
+<h4 id='http-request-3'>HTTP Request</h4>
 <p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/subjects</code></p>
-<h4 id='url-parameters-2'>URL Parameters</h4>
+<h4 id='url-parameters-3'>URL Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -806,9 +972,9 @@ A single provider can have at most 37 campuses.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all institutions.</p>
-<h4 id='http-request-3'>HTTP Request</h4>
+<h4 id='http-request-4'>HTTP Request</h4>
 <p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/providers</code></p>
-<h4 id='url-parameters-3'>URL Parameters</h4>
+<h4 id='url-parameters-4'>URL Parameters</h4>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -818,6 +984,44 @@ A single provider can have at most 37 campuses.
 <tr>
 <td>recruitment_cycle</td>
 <td>4-character year (e.g. 2019 for 2019/20 courses)</td>
+</tr>
+</tbody></table>
+<h3 id='get-changed-providers'>Get changed providers</h3>
+<p>This endpoint supports retrieving providers that have changed since the
+specified point in time, see the <a href="#retrieving-changed-records">Retrieving Changed
+Records</a> section.</p>
+
+<p>The returned results:</p>
+
+<ul>
+<li>matches the structure of the <a href="#get-all-providers">Get all providers</a> endpoint</li>
+<li>are sorted chronologically with the oldest update first</li>
+<li>are paginated with a page size of 100 (see the <a href="#pagination">pagination section</a> for info about navigating pages)</li>
+</ul>
+
+<p>A provider is marked as changed (and hence included in this endpoint) if:</p>
+
+<ul>
+<li>the provider itself has been changed (including contact data changes)</li>
+<li>any of the associated campuses has changed</li>
+<li>campus associations have changed</li>
+</ul>
+<h4 id='http-request-5'>HTTP Request</h4>
+<p><code>GET https://manage-courses-backend.herokuapp.com/api/v1/&lt;recruitment_cycle&gt;/providers?changed_since=&lt;iso-8601-timestamp&gt;</code></p>
+<h4 id='url-parameters-5'>URL Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>recruitment_cycle</td>
+<td>4-character year (e.g. 2019 for 2019/20 courses)</td>
+</tr>
+<tr>
+<td>changed_since</td>
+<td><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 date/time string</a></td>
 </tr>
 </tbody></table>
 
