@@ -411,7 +411,7 @@ a timestamp of the last API requests.</p>
 </tbody></table>
 
 <p>The response headers will include information related to continuing to retrieve
-changed records either immediately, or when ready to injest more records.</p>
+changed records either immediately, or when ready to ingest more records.</p>
 
 <table><thead>
 <tr>
@@ -937,6 +937,48 @@ A single provider can have at most 37 campuses.
 <td>Text</td>
 <td>01 to 11</td>
 <td>2-character string</td>
+</tr>
+<tr>
+<td>data_download_format</td>
+<td>Text</td>
+<td><code>ASCII DATA</code>, <code>ASCII DATA and UNICODE DATA</code> or <code>Unicode data</code></td>
+<td></td>
+</tr>
+<tr>
+<td>oustanding_decisions</td>
+<td>Text</td>
+<td><code>Alphabetic</code>, <code>Application code</code>, <code>Course / Alphabetic</code>, <code>Course / Application code</code>, <code>Course / Learner Number</code>, <code>Faculty / Alphabetic</code>, <code>Faculty / Application code</code>, <code>Faculty / Course / Alphabetic</code>, <code>Faculty / Course / Application code</code>, <code>Faculty / Course / Learner code</code>, <code>Not required</code> or <code>Learner Number</code></td>
+<td></td>
+</tr>
+<tr>
+<td>require_copy_forms</td>
+<td>Text</td>
+<td><code>No, not required</code> or <code>Yes, required</code></td>
+<td></td>
+</tr>
+<tr>
+<td>star_j</td>
+<td>Text</td>
+<td><code>UCAS link</code> or <code>Flat file</code></td>
+<td></td>
+</tr>
+<tr>
+<td>star_x</td>
+<td>Text</td>
+<td><code>No, not required</code> or <code>Yes, required</code></td>
+<td></td>
+</tr>
+<tr>
+<td>utt_application_alerts</td>
+<td>Text</td>
+<td><code>No, not required</code>, <code>Yes, required</code>, <code>Yes - only my programmes</code> or <code>Yes - for accredited programmes only</code></td>
+<td>New UTT Application alerts</td>
+</tr>
+<tr>
+<td>type_of_gt12</td>
+<td>Text</td>
+<td><code>Coming / Enrol</code>, <code>Coming or Not</code>, <code>No response</code> or <code>Not coming</code></td>
+<td></td>
 </tr>
 </tbody></table>
 <h3 id='get-all-providers'>Get all providers</h3><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://manage-courses-backend.herokuapp.com/api/v1/2019/providers"</span>
